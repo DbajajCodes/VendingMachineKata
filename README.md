@@ -18,4 +18,12 @@ Once all the modules were working, I needed to figure a way to hook them all tog
 6. BOOM !
 
 Note - I was not entirely convinced with my NON TDD use of the UI layer via swing, hence I wrote a parallel version of the logic, purely Test Driven. It looks very basic and interacts with the user and does not check for the quality of user input, but it does not employ any code thats not test driven/covered.
-# VendinMachinekata
+
+
+# Update - 03/2016
+After an honest yet awesome feedback, I figured there was a lot needed to be done before the code could be called complete - I removed the GUI layer,
+converted the entire project into a simple, command prompt driven flow, added more coverage to each file/line of code I wrote.
+
+Also, I made sure that the tests all pass out of the box :-)
+
+
