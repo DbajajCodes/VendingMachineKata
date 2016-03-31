@@ -14,9 +14,6 @@ public class CoinProcessor {
 	double totalAmount;
 	CurrentBudget budget = new CurrentBudget();
 	private static Coin penny = new Coin(1,1,0.01,"Penny");
-	private static Coin dime= new Coin(5,5,0.05,"Dime");
-	private static Coin nickel= new Coin(10,10,0.1,"Nickel");
-	private static Coin quarter= new Coin(25,25,0.25,"Quarter");
 	List<Coin> returnCoins = new ArrayList<Coin>();
 
 	public CurrentBudget getBudget() {

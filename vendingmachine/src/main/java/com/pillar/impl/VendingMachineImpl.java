@@ -24,9 +24,7 @@ public class VendingMachineImpl {
 	String response = "INSERT COINS";
 
 	public VendingMachineImpl(CoinProcessor processor) {
-		this.processor = new CoinProcessor();
-//		this.inventory = new ProductInventory();
-//		this.coinInventory = new CoinInventory();
+		VendingMachineImpl.processor = new CoinProcessor();
 	}
 
 	public static List<Coin> getReturnCoins() {
