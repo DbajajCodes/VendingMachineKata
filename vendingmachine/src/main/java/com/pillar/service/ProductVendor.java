@@ -50,8 +50,10 @@ public class ProductVendor {
 		case "Candy":
 			this.processor.processPostTransaction(0);
 			return DisplayMessage.PRICE_CANDY.getDescription();
+		default:
+			this.initiateReturn();
+			return DisplayMessage.INSERT_COIN.toString();
 		}
-		return null;
 
 	}
 

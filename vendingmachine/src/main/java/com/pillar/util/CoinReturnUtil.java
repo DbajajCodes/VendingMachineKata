@@ -10,7 +10,7 @@ public class CoinReturnUtil {
 
 	public static void calculateNickels(List<Coin> coinsToReturn,
 			BigDecimal postTransactionBalance) {
-		if (postTransactionBalance.doubleValue() > 0.09) {
+		if (postTransactionBalance.doubleValue() > 0.04) {
 			BigDecimal nickels[] = postTransactionBalance
 					.divideAndRemainder(new BigDecimal(0.05));
 
@@ -28,7 +28,7 @@ public class CoinReturnUtil {
 
 	public static BigDecimal calculateDimes(List<Coin> coinsToReturn,
 			BigDecimal postTransactionBalance) {
-		if (postTransactionBalance.doubleValue() > 0.9) {
+		if (postTransactionBalance.doubleValue() > 0.09) {
 			BigDecimal dimesAndNewBal[] = postTransactionBalance
 					.divideAndRemainder(new BigDecimal(0.10));
 

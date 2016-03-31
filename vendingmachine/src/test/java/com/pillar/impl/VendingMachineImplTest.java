@@ -1,8 +1,6 @@
 package com.pillar.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 import java.io.BufferedReader;
@@ -163,4 +161,5 @@ public void testExactChangeOnly() throws Exception {
 	assertTrue(outStream.toString().contains("EXACT CHANGE ONLY"));
 	
 }
+
 }
