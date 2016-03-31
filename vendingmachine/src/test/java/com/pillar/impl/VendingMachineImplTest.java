@@ -52,6 +52,7 @@ Coin penny;
 Coin nickel;
 Coin dime;
 Coin quarter;
+String userInput;
 
 @Before
 public void setup(){
@@ -62,6 +63,8 @@ public void setup(){
 	quarter = new Coin(25,25,0.25,"Quarter"); 
 	PowerMockito.mockStatic(CoinInventory.class);
 	PowerMockito.mockStatic(ProductInventory.class);
+	userInput = "1"+System.getProperty("line.separator")+"0"+System.getProperty("line.separator")
+	+"1"+System.getProperty("line.separator")+"1"+System.getProperty("line.separator")+"1";
 }
 
 @After
@@ -79,9 +82,9 @@ public void testAcceptsCorrectUserInputForProduct() throws Exception {
 
 @Test
 public void testAcceptsValidCoins() throws Exception {
-	ByteArrayInputStream inputStream = new ByteArrayInputStream("0,1,1,1,Cola".getBytes());
+	ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
 	System.setIn(inputStream);
-	VendingMachineImpl.main(new String[]{"0","1","1","1","Cola"});
+	VendingMachineImpl.main(new String[]{userInput});
 	assertFalse(VendingMachineImpl.getReturnCoins().contains(penny));
 			
 
@@ -89,7 +92,8 @@ public void testAcceptsValidCoins() throws Exception {
 
 @Test
 public void testRejectsInvalidCoins() throws Exception {
-	String userInput = "1"+System.getProperty("line.separator")+"1";
+	userInput = "1"+System.getProperty("line.separator")+"1"+System.getProperty("line.separator")
+	+"1"+System.getProperty("line.separator")+"1"+System.getProperty("line.separator")+"1";
 	ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
 	System.setIn(inputStream);
 	VendingMachineImpl.main(new String[]{userInput});
@@ -99,55 +103,63 @@ public void testRejectsInvalidCoins() throws Exception {
 
 @Test
 public void testSelectsProduct() throws Exception {
-	ByteArrayInputStream inputStream = new ByteArrayInputStream("1,1,1,1,Cola".getBytes());
+	ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
 	System.setIn(inputStream);
-	VendingMachineImpl.main(new String[]{"1","1","1","1","Cola"});
+	VendingMachineImpl.main(new String[]{userInput});
 	assertEquals(Product.Cola, impl.getProduct());
 }
 
 @Test
 public void testReturnsCorrectChangePostTransaction() throws Exception {
+	userInput = "2"+System.getProperty("line.separator")+"1"+System.getProperty("line.separator")
+	+"1"+System.getProperty("line.separator")+"1"+System.getProperty("line.separator")+"2";
 	when(CoinInventory.getDimes()).thenReturn(10);
 	when(CoinInventory.getNickels()).thenReturn(10);
 	when(CoinInventory.getQuarters()).thenReturn(10);
 	when(ProductInventory.getCandyCount()).thenReturn(10);
 	when(ProductInventory.getColaCount()).thenReturn(10);
 	when(ProductInventory.getChipsCount()).thenReturn(10);
-	ByteArrayInputStream inputStream = new ByteArrayInputStream("1,1,1,2,Chips".getBytes());
+	ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
 	System.setIn(inputStream);
-	VendingMachineImpl.main(new String[]{"1","1","1","2","Chips"});
+	VendingMachineImpl.main(new String[]{userInput});
 	assertTrue(VendingMachineImpl.getReturnCoins().contains(nickel));
 }
 
 @Test
 public void testCancelsTransactionAndReturnsAllMoneyOnReturn() throws Exception {
-	ByteArrayInputStream inputStream = new ByteArrayInputStream("1,1,1,2,Return".getBytes());
+	userInput = "4"+System.getProperty("line.separator")+"1"+System.getProperty("line.separator")
+	+"1"+System.getProperty("line.separator")+"1"+System.getProperty("line.separator")+"2";
+	ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
 	System.setIn(inputStream);
-	VendingMachineImpl.main(new String[]{"1","1","1","2","Return"});
+	VendingMachineImpl.main(new String[]{userInput});
 	assertTrue(VendingMachineImpl.getReturnCoins().contains(nickel));
 	assertTrue(VendingMachineImpl.getReturnCoins().contains(quarter));
 }
 
 @Test
 public void testSoldOut() throws Exception {
+	userInput = "3"+System.getProperty("line.separator")+"1"+System.getProperty("line.separator")
+	+"1"+System.getProperty("line.separator")+"1"+System.getProperty("line.separator")+"2";
 	for(int i=0;i<=6;i++){
-	ByteArrayInputStream inputStream = new ByteArrayInputStream("1,1,1,2,Candy".getBytes());
+	ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
 	System.setIn(inputStream);
-	VendingMachineImpl.main(new String[]{"1","1","1","2","Candy"});
+	VendingMachineImpl.main(new String[]{userInput});
 	}
 	assertTrue(outStream.toString().contains("SOLD OUT"));
 }
 
 @Test
 public void testExactChangeOnly() throws Exception {
+	userInput = "3"+System.getProperty("line.separator")+"0"+System.getProperty("line.separator")
+	+"0"+System.getProperty("line.separator")+"0"+System.getProperty("line.separator")+"3";
 	when(ProductInventory.getCandyCount()).thenReturn(10);
 	when(ProductInventory.getColaCount()).thenReturn(10);
 	when(ProductInventory.getChipsCount()).thenReturn(10);
 	when(CoinInventory.getDimes()).thenReturn(0);
 	CoinInventory.setDimes(0);
-	ByteArrayInputStream inputStream = new ByteArrayInputStream("0,0,0,3,Candy".getBytes());
+	ByteArrayInputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
 	System.setIn(inputStream);
-	VendingMachineImpl.main(new String[]{"0","0","0","3","Candy"});
+	VendingMachineImpl.main(new String[]{userInput});
 	assertTrue(outStream.toString().contains("EXACT CHANGE ONLY"));
 	
 }

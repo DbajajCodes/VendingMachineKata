@@ -42,10 +42,13 @@ public class ProductVendor {
 		String productDescription = productSelected.getDescription();
 		switch (productDescription) {
 		case "Cola":
+			this.processor.processPostTransaction(0);
 			return DisplayMessage.PRICE_COLA.getDescription();
 		case "Chips":
+			this.processor.processPostTransaction(0);
 			return DisplayMessage.PRICE_CHIPS.getDescription();
 		case "Candy":
+			this.processor.processPostTransaction(0);
 			return DisplayMessage.PRICE_CANDY.getDescription();
 		}
 		return null;

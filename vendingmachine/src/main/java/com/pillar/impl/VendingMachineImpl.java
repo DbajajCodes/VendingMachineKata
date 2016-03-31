@@ -1,9 +1,6 @@
 package com.pillar.impl;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
+	import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -50,7 +47,8 @@ public class VendingMachineImpl {
 		}catch(InputMismatchException e){
 			System.out.println("invalid input entered");
 		}
-		if(userInput>3){
+		if(userInput>4){
+			sc.close();
 			throw new IllegalArgumentException("Invalid input, please type 1 for Cola, 2 for Chips, 3 for Candy");
 		}
 		setupProduct(userInput);
@@ -82,8 +80,6 @@ public class VendingMachineImpl {
 			System.out.println("Invalid input entered");
 		}
 		addQuarters(userInput);
-		System.out
-				.println("Enter the following options, as a comma separated list - number of Pennies, Nickels, Dimes, Quarters, then your option Cola/Chips/Candy/Retur");
 		try {
 			VendingMachineImpl impl = new VendingMachineImpl(processor);
 			impl.process();
